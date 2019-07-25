@@ -122,4 +122,21 @@
  		System.out.println();
 	}
 
+	public T removeLast(){
+ 		StuffNode p = first;
+ 		size--;
+ 		if(p.next == null) {
+ 			T rtn = first.item;
+ 			first = null;
+ 			return rtn;
+		} else {
+			while (p.next.next != null){
+				p = p.next;
+			}
+			T rtn = p.next.item;
+			p.next = null;
+			return rtn;
+		}
+	}
+
 }
