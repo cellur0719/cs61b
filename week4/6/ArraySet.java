@@ -1,6 +1,6 @@
+import java.util.*;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.HashSet;
+
 public class ArraySet<T> implements Iterable<T>{
 
     private T[] items;
@@ -56,7 +56,7 @@ public class ArraySet<T> implements Iterable<T>{
             return returnItem;
         }
     }
-
+    /*
     @Override
     public String toString(){
         StringBuilder returnSB = new StringBuilder("{");
@@ -67,7 +67,18 @@ public class ArraySet<T> implements Iterable<T>{
         returnSB.append(items[size - 1]);
         returnSB.append("}");
         return returnSB.toString();
+    }*/
+
+    @Override
+    public String toString(){
+        List<String> ListOfItems = new ArrayList<String>();
+        for(T x : this){
+            ListOfItems.add(x.toString());
+        }
+        return "{" + String.join(", ",ListOfItems) + "}";
     }
+
+
 
     @Override
     public boolean equals(Object item){
@@ -92,6 +103,14 @@ public class ArraySet<T> implements Iterable<T>{
         return true;
 
 
+    }
+
+    public static <Glerk> ArraySet<Glerk> of(Glerk... Stuff){
+        ArraySet<Glerk> returnSet  = new ArraySet<Glerk>();
+        for (Glerk x : Stuff){
+            returnSet.add(x);
+        }
+        return returnSet;
     }
 
     public static void main(String[] args) {
@@ -130,10 +149,13 @@ public class ArraySet<T> implements Iterable<T>{
             System.out.println(i);
         }
 
-        System.out.println(as);
+        System.out.println(as.toString());
         System.out.println(as.equals(null));
         System.out.println(as.equals("fish"));
         System.out.println(as.equals(as));
+
+        ArraySet<String> aSetOfStrings = ArraySet.of("hi", "I'm", "here");
+        System.out.println(aSetOfStrings);
     }
 
     /* Also to do:
