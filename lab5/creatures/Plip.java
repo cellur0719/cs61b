@@ -17,6 +17,11 @@ import java.util.Map;
  */
 public class Plip extends Creature {
 
+    @Override
+    public String name(){
+        return "plip";
+    }
+
     /**
      * red color.
      */
@@ -57,7 +62,9 @@ public class Plip extends Creature {
      * that you get this exactly correct.
      */
     public Color color() {
-        g = 63;
+        r = 99;
+        b = 76;
+        g = (int) Math.round(96 * energy + 63);
         return color(r, g, b);
     }
 
@@ -74,7 +81,12 @@ public class Plip extends Creature {
      * private static final variable. This is not required for this lab.
      */
     public void move() {
-        // TODO
+        if (energy <= 0.15) {
+            energy = 0;
+        } else{
+            energy -= 0.15;
+        }
+
     }
 
 
@@ -82,7 +94,12 @@ public class Plip extends Creature {
      * Plips gain 0.2 energy when staying due to photosynthesis.
      */
     public void stay() {
-        // TODO
+        if(energy >= 1.8) {
+            energy = 2.0;
+        } else {
+            energy += 0.2;
+        }
+
     }
 
     /**
@@ -91,7 +108,9 @@ public class Plip extends Creature {
      * Plip.
      */
     public Plip replicate() {
-        return this;
+        energy /= 2;
+        Plip babyPlip = new Plip(energy);
+        return babyPlip;
     }
 
     /**
@@ -111,12 +130,19 @@ public class Plip extends Creature {
         // Rule 1
         Deque<Direction> emptyNeighbors = new ArrayDeque<>();
         boolean anyClorus = false;
-        // TODO
         // (Google: Enhanced for-loop over keys of NEIGHBORS?)
         // for () {...}
+        boolean flag = false;
+        for (Occupant k : neighbors.values()) {
+            String n = k.name();
+            if(n == null) {
+                flag = true;
+                break;
+            }
+        }
 
-        if (false) { // FIXME
-            // TODO
+        if (false) {
+            Action.ActionType at = Action.ActionType.STAY;
         }
 
         // Rule 2
