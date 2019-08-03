@@ -1,16 +1,14 @@
 package es.datastructur.synthesizer;
-//Note: This file will not compile until you complete task 1 (BoundedQueue).
-public class GuitarString {
-    /** Constants. Do not change. In case you're curious, the keyword final
-     * means the values cannot be changed at runtime. */
+
+public class Drum {
     private static final int SR = 44100;      // Sampling Rate
-    private static final double DECAY = .996; // energy decay factor
+    private static final double DECAY = 1; // energy decay factor
 
     /* Buffer for storing sound data. */
     private BoundedQueue<Double> buffer;
 
     /* Create a guitar string of the given frequency.  */
-    public GuitarString(double frequency) {
+    public Drum(double frequency) {
         int capacity = (int) Math.round(SR/frequency);
         buffer = new ArrayRingBuffer<>(capacity);
         for (int i = 0; i < this.buffer.capacity(); i++) {
@@ -34,7 +32,14 @@ public class GuitarString {
     public void tic() {
         double f = buffer.dequeue();
         double s = buffer.peek();
-        double newSample = DECAY * 0.5 * (f + s);
+        double prob = Math.random();
+        int flag;
+        if (prob < 0.5) {
+            flag = 1;
+        } else {
+            flag = -1;
+        }
+        double newSample = DECAY * 0.5 * flag * (f + s);
         buffer.enqueue(newSample);
     }
 
